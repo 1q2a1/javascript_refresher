@@ -54,8 +54,22 @@ buttons.forEach((btn) => btn.addEventListener('click', function() {
     else if (roundResult === "lose"){
         computerScore++
     }
-    playerScoreDisp.textContent = `Your Score: ${playerScore}` 
-    computerScoreDisp.textContent = `Computer Score: ${computerScore}`
+    if (playerScore === 5){
+        playerScoreDisp.textContent = `YOU WON`
+        computerScoreDisp.textContent = 'COM LOSE'
+        playerScore = 0
+        computerScore = 0
+    }
+    else if (computerScore === 5){
+        playerScoreDisp.textContent = `YOU LOSE`
+        computerScoreDisp.textContent = 'COM WON'
+        playerScore = 0
+        computerScore = 0
+    }
+    else{
+        playerScoreDisp.textContent = `Your Score: ${playerScore}` 
+        computerScoreDisp.textContent = `Computer Score: ${computerScore}`
+    }
 }))
 
 
