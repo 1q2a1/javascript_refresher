@@ -23,54 +23,70 @@ let getPlayerSelection = () => {
 let playRound = (computerSelection, playerSelection) => {
     let posInArrayCom
     let posInArrayPlayer
-    posInArrayCom = SELECTIONS.indexOf(computerSelection)
-    posInArrayPlayer = SELECTIONS.indexOf(playerSelection)
 
-    console.log(`You selected ${playerSelection}`)
-    console.log(`Computer selected ${computerSelection}`)
-    
+    const playerSelDescrip = `You selected ${playerSelection}`
+    const computerSelDescrip = `Computer selected ${computerSelection}`
+    const selectionsDescrip = `${playerSelDescrip} - ${computerSelDescrip} - `
 
-    if (posInArrayCom === posInArrayPlayer){
-        console.log("DRAW")
-        return "draw"
+ 
+    let resultDescrip
+    let result 
+    if (playerSelection === computerSelection){
+        resultDescrip = "DRAW"
+        result = "draw"
     }
-    else if ((posInArrayPlayer > posInArrayCom) || (posInArrayPlayer === 0 && posInArrayCom === 2)){
-        console.log("YOU WIN")
-        return "win"
+    else if ((playerSelection === "rock" && computerSelection === "scissors")||
+    (playerSelection === "scissors" && computerSelection === "paper") ||
+    (playerSelection === "paper" && computerSelection === "rock")
+    ){
+        resultDescrip = "YOU WIN"
+        result = "win"
     }
     else {
-        console.log("YOU LOSE")
-        return "lose"
+        resultDescrip = "YOU LOSE"
+        result = "lose"
     }
+
+    const fullDescrip = `${selectionsDescrip}${resultDescrip}`
+    const lastMatchDetails = document.querySelector(".last-match-details")
+    console.log(lastMatchDetails)
+    lastMatchDetails.textContent=fullDescrip
+    return result
 }
 
-let game = () => {
-    console.log("This is rock paper scissors, 5 rounds will be played")
-    let computerScore = 0
-    let playerScore = 0
-    for (let i=0; i<5; i++){
-        console.log(`Round ${i}`)
-        console.log(`Your score: Computer score is ${playerScore}:${computerScore}`)
-        let roundResult = playRound(getComputerSelection(), getPlayerSelection())
-        if (roundResult === "win"){
-            playerScore++ 
-        }
-        else if (roundResult === "lose"){
-            computerScore++
-        }
-    }
+
+const buttons = document.querySelectorAll("button")
+buttons.forEach((btn) => btn.addEventListener('click', function() {
+    const playerSelection = this.textContent.toLowerCase()
+    const computerSelection = getComputerSelection()
+    playRound(computerSelection, playerSelection)
+}))
+
+
+// let game = () => {
+//     console.log("This is rock paper scissors, 5 rounds will be played")
+//     let computerScore = 0
+//     let playerScore = 0
+//     for (let i=0; i<5; i++){
+//         console.log(`Round ${i}`)
+//         console.log(`Your score: Computer score is ${playerScore}:${computerScore}`)
+//         let roundResult = playRound(getComputerSelection(), getPlayerSelection())
+//         if (roundResult === "win"){
+//             playerScore++ 
+//         }
+//         else if (roundResult === "lose"){
+//             computerScore++
+//         }
+//     }
     
-    console.log(`Final Score is ${playerScore}:${computerScore}`)
-    if (playerScore>computerScore){
-        console.log("You Win!")
-    }
-    else if(playerScore<computerScore){
-        console.log("You Lose!")
-    }
-    else{
-        console.log("Draw!")
-    }
-}
-
-game()
-
+//     console.log(`Final Score is ${playerScore}:${computerScore}`)
+//     if (playerScore>computerScore){
+//         console.log("You Win!")
+//     }
+//     else if(playerScore<computerScore){
+//         console.log("You Lose!")
+//     }
+//     else{
+//         console.log("Draw!")
+//     }
+// }
